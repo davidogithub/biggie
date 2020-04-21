@@ -41,6 +41,10 @@ av = c(mdata$vote_average)
 max_av = max(av, na.rm=TRUE)
 avg_av = mean(av, na.rm=TRUE)
 sd_av = sd(av, na.rm=TRUE)
-max_av
-sd_av
-avg_av
+
+
+bud_nozero = filter(mdata, budget>0)
+b = bud_nozero$budget
+b_test = ggplot(data=mdata,aes(x=budget), binwidth = 25)+
+  geom_histogram(aes(y=..count..))
+b_test
