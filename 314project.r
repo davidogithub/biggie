@@ -45,6 +45,27 @@ sd_av = sd(av, na.rm=TRUE)
 
 bud_nozero = filter(mdata, budget>0)
 b = bud_nozero$budget
-b_test = ggplot(data=mdata,aes(x=budget), binwidth = 25)+
+b_hist = ggplot(data=mdata,aes(x=budget), binwidth = 25)+
   geom_histogram(aes(y=..count..))
-b_test
+b_hist
+
+time_curve = ggplot(data=mdata,aes(x=time), binwidth = 25)+
+  geom_density(aes(y=..density..))
+time_curve
+
+t1 = ggplot(data=mdata, aes(x=time))+
+  stat_function(fun=dnorm, n =5000, args=list(mean=107.66, sd=20.75))+ylab("")+
+  scale_y_continuous(breaks=NULL)
+t1
+
+pop_nonzero = select(mdata, title, popularity)
+pop_nonzero
+pop_sort = pop_nonzero[order(popularity, decreasing=TRUE),]
+pop_5 = head(pop_sort, 5)
+View(pop_5)
+pop5_plot = barplot(pop_5$popularity, main="Popularity",
+                    names.arg = c("Minions", "Interstellar", "Deadpool", 
+                                  "Guardians", "Mad Max"), 
+                    xlab = "Most Popular 5")
+
+                    
